@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XHFrameWork;
 
 public class GameCtrlStatus
 {
@@ -79,6 +80,15 @@ public class GameCtrl : MonoBehaviour
     void runInitData()
     {
         Debug.LogError("runInitData");
+        {
+            //读取设置数据
+            MainData.Instance.LoadSaverIntoMainData(SaveID.Config);
+            //读取永久存档数据
+            MainData.Instance.LoadSaverIntoMainData(SaveID.BookSave);
+            //读取战略模式存档数据
+            MainData.Instance.LoadSaverIntoMainData(SaveID.AutoSave);
+        }
+
         DataBaseManager.Instance.start();
 
         this.stepComplete();

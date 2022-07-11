@@ -32,15 +32,6 @@ namespace XHFrameWork
     public enum EnumParmCsvType
     {
         ConfigInit = 0,
-
-        DeskParm = 1,
-        CardParm=2,
-        CardEventParm = 3,
-        CardSkillParm =4,
-        TalkingParm =5,
-        SightParm=6,
-        PostProcessParm=7,
-        LootParm=8,
     }
 
     //存档位枚举
@@ -132,31 +123,7 @@ namespace XHFrameWork
                 case EnumParmCsvType.ConfigInit:
                     _path = "ConfigInit";
                     break;
-                case EnumParmCsvType.DeskParm:
-                    _path = "DeskParm";
-                    break;
-                case EnumParmCsvType.CardParm:
-                    _path = "CardParm";
-                    break;
-                case EnumParmCsvType.CardEventParm:
-                    _path = "CardEventParm";
-                    break;
-                case EnumParmCsvType.LootParm:
-                    _path = "LootParm";
-                    break;
-                case EnumParmCsvType.CardSkillParm:
-                    _path = "CardSkillParm";
-                    break;
-                case EnumParmCsvType.TalkingParm:
-                    _path = "TalkingParm";
-                    break;
-                case EnumParmCsvType.SightParm:
-                    _path = "SightParm";
-                    break;
-                case EnumParmCsvType.PostProcessParm:
-                    _path = "PostProcessParm";
-                    break;
-                    
+
                 default:
                     Debug.Log("Not Find EnumUIType! type: " + filename.ToString());
                     break;

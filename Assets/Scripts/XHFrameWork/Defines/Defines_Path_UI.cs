@@ -1,5 +1,6 @@
 ﻿/*UI枚举&路径*/
 
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,16 +25,8 @@ namespace XHFrameWork
     public enum EnumUIType : int
     {
         None = -1,
-        StartUI, 
-        ChoiceLevelUI,
-        PopupUI,
-        SystemUI,
-        ConfigUI,
-        PopupUI_ChoiceCard,//选卡弹窗（3选1）
-        BlackMask,
-        FightUI,
-        ComeSoonUI, 
-        TestDeskUI,
+        StartUI,
+        BattleUI,
     }
 
     //点击事件类型
@@ -124,7 +117,7 @@ namespace XHFrameWork
     public static class UIPath
     {
         //已经完工的UI
-        public const string UI_FINISHED_PREFAB = "Prefabs/UI/Finished/";
+        public const string UI_FINISHED_PREFAB = "Prefabs/UI/";
         //开始游戏相关UI
         public const string UI_WaitToCheck_PREFAB = "Prefabs/UI/WaitToCheck/";
         // UI预设。
@@ -132,64 +125,27 @@ namespace XHFrameWork
         //  动态pic路径-DynamicPic路径
         public const string UI_DynamicPic_PATH = "Pic/";
 
+        private static Dictionary<EnumUIType, string> UIPaths = new Dictionary<EnumUIType, string>()
+        {
+            {EnumUIType.StartUI,  UI_FINISHED_PREFAB + "StartUI"},
+            {EnumUIType.BattleUI,  UI_FINISHED_PREFAB + "BattleUI"},
+    };
+        private static Dictionary<EnumUIType, Type> UIScripts = new Dictionary<EnumUIType, Type>()
+        {
+            {EnumUIType.StartUI,  typeof(StartUI)},
+            {EnumUIType.BattleUI,  typeof(BattleUI)},
+        };
         //获取Prefab路径 by UI类型(resource文件夹下)
         public static string GetUIPath(EnumUIType _uiType)
         {
-            string _path = string.Empty;
-            switch (_uiType)
-            {
-                case EnumUIType.StartUI:
-                    _path = UI_FINISHED_PREFAB + "StartView";
-                    break; 
-                case EnumUIType.ChoiceLevelUI:
-                    _path = UI_FINISHED_PREFAB + "ChoiceLevelUI";
-                    break; 
-                case EnumUIType.PopupUI:
-                    _path = UI_FINISHED_PREFAB + "PopupUI";
-                    break;
-                case EnumUIType.BlackMask:
-                    _path = UI_FINISHED_PREFAB + "BlackMask";
-                    break;
-                case EnumUIType.SystemUI:
-                    _path = UI_FINISHED_PREFAB + "SystemUI";
-                    break;
-                case EnumUIType.ConfigUI:
-                    _path = UI_FINISHED_PREFAB + "ConfigUI";
-                    break;
-                case EnumUIType.PopupUI_ChoiceCard:
-                    _path = UI_FINISHED_PREFAB + "PopupUI_ChoiceCard";
-                    break;
-
-                    
-
-                case EnumUIType.FightUI:
-                    _path = UI_PREFAB + "FightUI";
-                    break;
-
-                case EnumUIType.ComeSoonUI:
-                    _path = UI_FINISHED_PREFAB + "ComeSoonUI";
-                    break;
-                case EnumUIType.TestDeskUI:
-                    _path = UI_FINISHED_PREFAB + "TestDeskUI";
-                    break;
-                    
-                default:
-                    Debug.Log("Not Find EnumUIType! type: " + _uiType.ToString());
-                    break;
-            }
+            string _path = UIPaths.objectValue(_uiType);
             return _path;
         }
 
         //获取UI脚本类型（UI与脚本的对应关系）
         public static System.Type GetUIScript(EnumUIType _uiType)
         {
-            System.Type _scriptType = null;
-            switch (_uiType)
-            {
-                default:
-                    Debug.Log("Not Find EnumUIType! type: " + _uiType.ToString());
-                    break;
-            }
+            System.Type _scriptType = UIScripts.objectValue(_uiType);
             return _scriptType;
         }    
     }
