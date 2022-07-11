@@ -23,6 +23,8 @@ public partial class EducationNode
     protected Dictionary<int, Action<float>> updateActions => _statusObject.updateActions;
     protected Dictionary<int, Action> leaveActions => _statusObject.leaveActions;
 
+    private BattleObject battleObject;
+    
     void startStatus()
     {
         this._statusObject = new StatusObject();
@@ -57,21 +59,33 @@ public partial class EducationNode
     void runBattleScene()
     {
         UIManager.Instance.OpenUICloseOthers(EnumUIType.BattleUI);
-
+        this.battleObject = new BattleObject();
+        this.battleObject.init();
+        this.battleObject.start();
     }
 
     void updateBattleScene(float dt)
     {
+        this.battleObject.update(dt);
     }
 
     void leaveBattleScene()
     {
+        this.battleObject.stop();
+        this.battleObject = null;
     }
 
     public void tryEnterBattle()
     {
         if (this.baseState == EducationNodeStatus.EducationScene) {
             this.baseState = EducationNodeStatus.BattleScene;
+        }
+    }
+    
+    public void tryEnterEducation()
+    {
+        if (this.baseState == EducationNodeStatus.BattleScene) {
+            this.baseState = EducationNodeStatus.EducationScene;
         }
     }
 }
