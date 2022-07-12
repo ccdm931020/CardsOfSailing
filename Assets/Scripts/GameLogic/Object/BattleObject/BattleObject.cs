@@ -64,6 +64,7 @@ public partial class BattleObject :BaseObject
     public override void update(float dt)
     {
         base.update(dt);
+        this.updateStatus(dt);
     }
 
     public override void stop()

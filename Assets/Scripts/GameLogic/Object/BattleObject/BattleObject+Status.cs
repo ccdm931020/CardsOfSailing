@@ -4,95 +4,73 @@ using UnityEngine;
 
 public partial class BattleObject
 {
-    class BattleObjectStatus
-    {
-        public const int None = 0;
-        public const int Prepare = 1;
-        
-        //行动阶段
-        public const int ActionRound = 11;
-        //结算结算
-        public const int Calculate = 12;
-        //事件触发
-        public const int Event = 13;
-
-        //靠岸的状态
-        public const int Dock = 21;
-        
-    }
-    protected override bool needStateObject => true;
-
-    private float delay;
-    private float currentDelay;
+    private List<RoomBaseObject> roomObjectList;
+    private RoomBaseObject currentRoomObject;
     
     void initStatus()
     {
-        this.statusActions[BattleObjectStatus.Prepare] = this.runPrepare;
-        this.updateActions[BattleObjectStatus.Prepare] = this.updatePrepare;
-
-        this.statusActions[BattleObjectStatus.ActionRound] = this.runActionRound;
-
-        this.statusActions[BattleObjectStatus.Calculate] = this.runCalculate;
-        
-        this.statusActions[BattleObjectStatus.Event] = this.runEvent;
-        this.leaveActions[BattleObjectStatus.Event] = this.leaveEvent;
-
-        this.statusActions[BattleObjectStatus.Dock] = this.runDock;
-        this.leaveActions[BattleObjectStatus.Dock] = this.leaveDock;
+        this.roomObjectList = new List<RoomBaseObject>();
     }
 
     void startStatus()
     {
-        this.baseState = BattleObjectStatus.Prepare;
+        //TODO:加载roomObject
+        var obj1 = DataUtils.Instance.getActivator<SailRoomObject>("SailRoomObject");
+        obj1.battleObject = this;
+        obj1.init();
+        var obj2 = DataUtils.Instance.getActivator<IslandRoomObject1>("IslandRoomObject1");
+        obj2.battleObject = this;
+        obj2.init();
+
+        var obj3 = DataUtils.Instance.getActivator<SailRoomObject>("SailRoomObject");
+        obj3.battleObject = this;
+        obj3.init();
+
+        var obj4 = DataUtils.Instance.getActivator<IslandRoomObject2>("IslandRoomObject2");
+        obj4.battleObject = this;
+        obj4.init();
+
+        this.roomObjectList.Add(obj1);
+        this.roomObjectList.Add(obj2);
+        this.roomObjectList.Add(obj3);
+        this.roomObjectList.Add(obj4);
+
+        for (int i = 0; i < this.roomObjectList.Count; i++) {
+            var o = this.roomObjectList[i];
+            o.preRoomObject = this.roomObjectList.objectValue(i - 1);
+            o.nextRoomObject = this.roomObjectList.objectValue(i + 1);
+        }
+        
+        if (this.roomObjectList.Count == 0) {
+            this.endBattle();
+            return;
+        }
+        
+        this.setCurrentRoomObject(this.roomObjectList[0]);
+    }
+
+    void updateStatus(float dt)
+    {
+        this.currentRoomObject?.update(dt);
     }
 
     void stopStatus()
     {
+        this.roomObjectList.Clear();
     }
 
-    void runPrepare()
+    public void setCurrentRoomObject(RoomBaseObject roomBaseObject)
     {
-        //TODO：创建船
-        
-        this.delay = 1f;
-        this.currentDelay = 0;
-    }
-
-    void updatePrepare(float dt)
-    {
-        this.currentDelay += dt;
-        if (this.currentDelay > this.delay) {
-            this.currentDelay = 0;
-            this.baseState = BattleObjectStatus.ActionRound;
+        this.currentRoomObject?.exit();
+        this.currentRoomObject = roomBaseObject;
+        this.currentRoomObject?.enter();
+        if (this.currentRoomObject == null) {
+            this.endBattle();
         }
     }
 
-    void runActionRound()
+    private void endBattle()
     {
-        //TODO:回合开始，抽卡
-        
-    }
-
-    void runCalculate()
-    {
-        //TODO:结算，前进
-    }
-
-    void runEvent()
-    {
-        //TODO:事件出发
-    }
-
-    void leaveEvent()
-    {
-    }
-
-    void runDock()
-    {
-        //TODO:靠岸
-    }
-
-    void leaveDock()
-    {
+        this.mainNode.tryEnterEducation();
     }
 }
