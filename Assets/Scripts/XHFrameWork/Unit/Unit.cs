@@ -59,7 +59,7 @@ public partial class Unit
         this.popExtra();
     }
 
-    public void update(float dt)
+    public virtual void update(float dt)
     {
         if (this.needStatusObject) {
             this._statusObject.update(dt);

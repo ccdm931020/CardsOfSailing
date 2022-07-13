@@ -6,6 +6,14 @@ public partial class CardObject : BaseObject
 {
     public CardInsData cardInsData;
 
+    public bool isOver { get; private set; }
+
+    public override void init()
+    {
+        base.init();
+        this.isOver = false;
+    }
+
     public override void start()
     {
         base.start();
