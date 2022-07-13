@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CardProto : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public CardObject cardObject;
-    public CardInsData cardInsData => this.cardObject.cardInsData;
+    private CardInsData cardInsData => this.cardObject.cardInsData;
     private Text nameLabel;
     private Text descLabel;
     private Text costLabel;
