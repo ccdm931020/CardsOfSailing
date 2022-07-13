@@ -32,20 +32,20 @@ public class IslandRoomObject1 : RoomBaseObject
     public override void enter()
     {
         base.enter();
-        Debug.LogError("进入淡水岛");
+        this.battleObject.refreshBattleTitle("进入淡水岛");
+
         this.baseState = IslandRoomObject1Status.ActionRound;
     }
 
     public override void exit()
     {
-        Debug.LogError("离开淡水岛");
+        this.battleObject.refreshBattleTitle("离开淡水岛");
         base.exit();
     }
 
     void runActionRound()
     {
-        Debug.LogError("抽卡，补充淡水");
-
+        this.battleObject.refreshBattleTitle("抽卡，补充淡水");
         this.delay = 1;
         this.currentDelay = 0;
     }

@@ -8,6 +8,12 @@ public partial class BoatUnit
 
     void startCards()
     {
+        for (int i = 0; i < 3; i++) {
+            var cardConfig = CardDataHandler.Instance.configRoot.configList.getRandomOne();
+            var insData = DataUtils.Instance.getActivator<CardInsData>("CardInsData");
+            insData.reloadData(null, cardConfig);
+            this.addCardObject(insData);
+        }
     }
 
     void updateCards(float dt)
@@ -32,6 +38,7 @@ public partial class BoatUnit
     {
         var obj = DataUtils.Instance.getActivator<CardObject>("CardObject");
         obj.cardInsData = cardInsData;
+        obj.boatUnit = this;
         obj.start();
         this.cardObjectList.Add(obj);
     }

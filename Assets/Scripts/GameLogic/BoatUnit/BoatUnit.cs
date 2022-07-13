@@ -73,7 +73,7 @@ public partial class BoatUnit : Unit
     protected override void popObject()
     {
         base.popObject();
-        this.gameObject = this.roleObject;
+        this.gameObject = this.battleUI.gameObject;
     }
 
     protected override void popExtra()

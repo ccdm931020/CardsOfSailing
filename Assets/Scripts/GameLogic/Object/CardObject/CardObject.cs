@@ -5,7 +5,7 @@ using UnityEngine;
 public partial class CardObject : BaseObject
 {
     public CardInsData cardInsData;
-
+    public BoatUnit boatUnit;
     public bool isOver { get; private set; }
 
     public override void init()

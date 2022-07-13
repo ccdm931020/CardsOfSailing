@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using XHFrameWork;
 
 public partial class BattleObject
@@ -77,5 +78,12 @@ public partial class BattleObject
     private void endBattle()
     {
         this.mainNode.tryEnterEducation();
+    }
+
+    public void refreshBattleTitle(string desc)
+    {
+        var battleUI = UIManager.Instance.GetUI<BattleUI>(EnumUIType.BattleUI);
+        var text = battleUI.transform.Find("topPanel").Find("titleLabel").GetComponent<Text>();
+        text.text = desc;
     }
 }

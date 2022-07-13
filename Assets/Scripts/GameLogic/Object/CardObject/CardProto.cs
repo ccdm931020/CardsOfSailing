@@ -25,7 +25,7 @@ public class CardProto : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
         this.nameLabel.text = this.cardInsData.name;
         this.descLabel.text = this.cardInsData.getDesc();
-        this.costLabel.text = this.cardInsData.desc;
+        this.costLabel.text = this.cardInsData.cost.toString();
     }
 
     public void stop()
