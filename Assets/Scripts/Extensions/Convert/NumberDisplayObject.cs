@@ -5,29 +5,22 @@ using UnityEngine;
 
 public class NumberDisplayObject
 {
-    public int value { get; private set; }
-    public int displayValue { get; private set; }
+    public float value { get; private set; }
     public event Action onValueChangeAction;
-    public event Action onDisplayChangeAction;
     
-    public NumberDisplayObject(int val)
+    public NumberDisplayObject(float val)
     {
-        this.setValue(val, true);
+        this.setValue(val);
     }
 
-    public void setValue(int val, bool refreshDisplay = false)
+    public void setValue(float val)
     {
         this.value = val;
-        if (refreshDisplay) {
-            this.displayValue = this.value;
-            this.onDisplayChangeAction?.Invoke();
-        }
         this.onValueChangeAction?.Invoke();
     }
-
-    public void refresh()
+    
+    public void addValue(float val)
     {
-        this.displayValue = this.value;
-        this.onDisplayChangeAction?.Invoke();
+        this.setValue(this.value + val);
     }
 }

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XHFrameWork;
 
 public partial class BattleObject
 {
     private List<RoomBaseObject> roomObjectList;
     private RoomBaseObject currentRoomObject;
+    private BoatUnit boatUnit;
     
     void initStatus()
     {
@@ -47,6 +49,9 @@ public partial class BattleObject
         }
         
         this.setCurrentRoomObject(this.roomObjectList[0]);
+
+        var battleUI = UIManager.Instance.GetUI<BattleUI>(EnumUIType.BattleUI);
+        this.boatUnit = this.mainNode.unitManager.createBoatUnit(battleUI, BoatDataHandler.Instance.configRoot.configList.getRandomOne());
     }
 
     void updateStatus(float dt)

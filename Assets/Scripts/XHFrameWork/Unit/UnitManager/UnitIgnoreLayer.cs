@@ -5,6 +5,7 @@ using UnityEngine;
 public enum UnitLayer
 {
     //控制点
+    UI = 5,
     ControlBody = 8,
     Room,
     Hero,

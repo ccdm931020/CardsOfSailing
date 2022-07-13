@@ -6,10 +6,12 @@ using UnityEngine;
 public class UnitGroup
 {
     public const int None = 0;
+    public const int BoatUnit = 1;
     public const int Max = 2;
 
     private static Dictionary<int, string> UnitClassNames = new Dictionary<int, string>()
     {
+        {BoatUnit, "BoatUnit"},
     };
 
     public static string getUnitClassName(int unitGroup)
@@ -63,5 +65,13 @@ public partial class UnitManager
         this.units[unitGroup].Add(unit);
         unit.start(para);
         return unit;
+    }
+
+    public BoatUnit createBoatUnit(BattleUI battleUI, BoatConfig boatConfig)
+    {
+        var dic = DataUtils.Instance.popDict();
+        dic["config"] = boatConfig;
+        dic["battleUI"] = battleUI;
+        return this.creatUnit(UnitGroup.BoatUnit, dic) as BoatUnit;
     }
 }
