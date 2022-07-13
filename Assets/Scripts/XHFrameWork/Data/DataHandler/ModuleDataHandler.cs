@@ -6,10 +6,12 @@ using UnityEngine.Purchasing.MiniJSON;
 public class DataModule
 {
     public const string None = "none";
+    public const string Card = "card";
 
     //配置加载顺序
     public static List<string> ConfigModuleNameList = new List<string>()
     {
+        Card
     };
 
     //数据加载顺序
@@ -19,7 +21,7 @@ public class DataModule
     
     public static Dictionary<string, string> DataHandlerClassNames = new Dictionary<string, string>()
     {
-
+        {Card, "CardDataHandler"},
     };
 }
 
