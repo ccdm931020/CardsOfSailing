@@ -13,7 +13,7 @@ public class ReplaceTargetText : EditorWindow
     private string sourceText = "Plane";
     private string targetText = "default";
     
-    [MenuItem("Tools/批量转换场景gameObjName")]
+    // [MenuItem("Tools/批量转换场景gameObjName")]
     public static void PackLuaWindow()
     {
         var go = new GameObject("CCCCCCC");
