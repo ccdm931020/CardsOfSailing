@@ -1,0 +1,12 @@
+{
+    "config": {
+        "1": {
+            "name": "船",
+            "leader": 3,
+            "operate" : 1,
+            "cook" : 1,
+            "surf" : 1,
+            "guide" : 1
+        }
+    }
+}

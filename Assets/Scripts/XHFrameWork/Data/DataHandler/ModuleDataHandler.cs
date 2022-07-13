@@ -7,11 +7,12 @@ public class DataModule
 {
     public const string None = "none";
     public const string Card = "card";
+    public const string Boat = "boat";
 
     //配置加载顺序
     public static List<string> ConfigModuleNameList = new List<string>()
     {
-        Card
+        Card, Boat
     };
 
     //数据加载顺序
@@ -22,6 +23,7 @@ public class DataModule
     public static Dictionary<string, string> DataHandlerClassNames = new Dictionary<string, string>()
     {
         {Card, "CardDataHandler"},
+        {Boat, "BoatDataHandler"},
     };
 }
 
